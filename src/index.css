@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold:  #c9a84c;
+  --goldl: #e8c76e;
+  --goldd: #9e7a2e;
+  --dark:  #06101a;
+}
+
+body {
+  background: var(--dark);
+  color: #e8d9b5;
+  font-family: 'Inter', sans-serif;
+}
+
+.font-serif { font-family: 'Cormorant Garamond', serif; }
+
+/* Gold scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0d1f2d; }
+::-webkit-scrollbar-thumb { background: var(--goldd); border-radius: 3px; }
