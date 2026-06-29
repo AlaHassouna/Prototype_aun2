@@ -253,6 +253,12 @@ export default function Home() {
   /* ─── share handlers ─── */
   const openShare  = () => { setShareStep('platform'); setSharePlat(null); setShareFmt(null); setShareProg(0); setShareOpen(true); };
   const closeShare = () => setShareOpen(false);
+
+  const downloadDirect = async () => {
+    if (shareStep === 'generating') return;
+    setShareFmt('reel'); setShareStep('generating'); setShareProg(0); setShareOpen(true);
+    try { await generateReel(); } catch (err) { console.error(err); setShareStep('format'); }
+  };
   const selectPlatform = p => { setSharePlat(p); setShareStep('format'); };
   const selectFormat = async fmt => {
     setShareFmt(fmt); setShareStep('generating'); setShareProg(0);
@@ -1187,9 +1193,9 @@ export default function Home() {
       {/* ══════ SHARE FAB — outside #inv so position:fixed is always relative to viewport ══════ */}
       {invVisible && (
         <div className="share-fab-wrap">
-          <div className={`share-tip${tipVis ? ' show' : ''}`}>Post as a Reel or Story</div>
-          <button className="share-fab" onClick={openShare} aria-label="Share event">
-            <Share2 />
+          <div className={`share-tip${tipVis ? ' show' : ''}`}>Télécharger la vidéo</div>
+          <button className="share-fab" onClick={downloadDirect} aria-label="Télécharger la vidéo">
+            <Download />
           </button>
         </div>
       )}
@@ -1305,12 +1311,9 @@ export default function Home() {
             {shareStep === 'done' && (
               <>
                 <div className="done-check"><CheckCircle2 /></div>
-                <div className="done-ttl">
-                  {shareFmt === 'reel' ? 'Reel Ready!' : 'Story Ready!'}
-                </div>
+                <div className="done-ttl">Vidéo téléchargée !</div>
                 <div className="done-sub">
-                  Your {shareFmt} has been saved to your device.{' '}
-                  Open {sharePlat === 'facebook' ? 'Facebook' : 'Instagram'} to publish it.
+                  La vidéo a été enregistrée sur votre appareil.
                 </div>
                 <button className="done-btn" onClick={closeShare}>Done</button>
               </>
